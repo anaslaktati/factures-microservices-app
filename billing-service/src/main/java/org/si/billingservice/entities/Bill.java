@@ -5,8 +5,9 @@ import lombok.*;
 import org.si.billingservice.model.Customer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+
 @Entity
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @Builder
 public class Bill {
@@ -14,7 +15,7 @@ public class Bill {
     private Long id;
     private Date billingDate;
     private long customerId;
-    @OneToMany(mappedBy = "bill")
-    private List<ProductItem> productItems = new ArrayList<>();
+    @OneToMany(mappedBy = "bill", fetch = FetchType.EAGER)
+    private Collection<ProductItem> productItems;
     @Transient private Customer customer;
 }
