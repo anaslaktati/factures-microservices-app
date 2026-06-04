@@ -1,13 +1,31 @@
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - http://localhost:4200
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
       routes:
-        - id: r1
+        - id: customers
           uri: lb://CUSTOMER-SERVICE
           predicates:
-            Path= /api/customers/**
-        - id: r2
+            - Path=/api/customers/**
+        - id: inventory
           uri: lb://INVENTORY-SERVICE
           predicates:
-            Path= /api/products/**
+            - Path=/api/products/**
+        - id: billing
+          uri: lb://BILLING-SERVICE
+          predicates:
+            - Path=/api/bills/**
 
