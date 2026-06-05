@@ -1,0 +1,94 @@
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between mb-3">
+    <h2>Customers</h2>
+
+    <button class="btn btn-primary" (click)="openAdd()">
+      Add Customer
+    </button>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th width="180">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let customer of customers">
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.email }}</td>
+
+            <td>
+              <button class="btn btn-sm btn-warning me-2"
+                      (click)="openEdit(customer)">
+                Edit
+              </button>
+
+              <button class="btn btn-sm btn-danger"
+                      (click)="deleteCustomer(customer.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ isEditMode ? 'Edit Customer' : 'Add Customer' }}
+        </h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form [formGroup]="customerForm">
+
+          <div class="mb-3">
+            <label>Name</label>
+            <input class="form-control" formControlName="name">
+          </div>
+
+          <div class="mb-3">
+            <label>Email</label>
+            <input class="form-control" formControlName="email">
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+
+        <button class="btn btn-primary" (click)="saveCustomer()">
+          Save
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

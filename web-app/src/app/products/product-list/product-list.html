@@ -1,0 +1,115 @@
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between mb-3">
+    <h2>Products</h2>
+
+    <button class="btn btn-primary" (click)="openAdd()">
+      Add Product
+    </button>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <table class="table table-hover table-bordered">
+
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th width="180">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let product of products">
+
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }} €</td>
+
+            <td>
+              <span class="badge bg-success">
+                {{ product.quantity }}
+              </span>
+            </td>
+
+            <td>
+
+              <button class="btn btn-sm btn-warning me-2"
+                      (click)="openEdit(product)">
+                Edit
+              </button>
+
+              <button class="btn btn-sm btn-danger"
+                      (click)="deleteProduct(product.id)">
+                Delete
+              </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="addProductModal" tabindex="-1">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ isEditMode ? 'Edit Product' : 'Add Product' }}
+        </h5>
+
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form [formGroup]="productForm">
+
+          <div class="mb-3">
+            <label>Name</label>
+            <input class="form-control" formControlName="name">
+          </div>
+
+          <div class="mb-3">
+            <label>Price</label>
+            <input class="form-control" formControlName="price">
+          </div>
+
+          <div class="mb-3">
+            <label>Quantity</label>
+            <input class="form-control" formControlName="quantity">
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+
+        <button class="btn btn-primary" (click)="saveProduct()">
+          Save
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

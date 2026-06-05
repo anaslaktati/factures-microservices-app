@@ -1,6 +1,6 @@
 package org.si.billingservice.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.si.billingservice.model.Product;
@@ -12,7 +12,7 @@ public class ProductItem {
     private Long id;
     private String productId;
     @ManyToOne
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private Bill bill;
     private int quantity;
     private double unitPrice;

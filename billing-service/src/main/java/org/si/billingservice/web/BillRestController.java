@@ -22,6 +22,31 @@ public class BillRestController {
     @Autowired
     private ProductRestClient productRestClient;
 
+    @GetMapping({"/bills", "/api/bills"})
+    public List<Bill> getBills() {
+
+        List<Bill> bills = billRepository.findAll();
+
+        bills.forEach(bill -> {
+
+            bill.setCustomer(
+                    customerRestClient.getCustomerById(
+                            bill.getCustomerId()
+                    )
+            );
+
+            bill.getProductItems().forEach(pi -> {
+                pi.setProduct(
+                        productRestClient.getProductById(
+                                pi.getProductId()
+                        )
+                );
+            });
+        });
+
+        return bills;
+    }
+
     @GetMapping(path = {"/bills/{id}", "/api/bills/{id}"})
     public Bill getBill(@PathVariable Long id){
         Bill bill = billRepository.findById(id).get();

@@ -1,0 +1,74 @@
+<div class="container mt-4" *ngIf="bill">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>
+            Bill #{{ bill.id }}
+        </h2>
+        <a routerLink="/bills" class="btn btn-secondary">
+            Back
+        </a>
+    </div>
+    <!-- Bill Info -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-dark text-white">
+            Bill Information
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        <strong>Date:</strong>
+                        {{ bill.billingDate | date:'medium' }}
+                    </p>
+                    <p>
+                        <strong>Customer ID:</strong>
+                        {{ bill.customerId }}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <strong>Customer Name:</strong>
+                        {{ bill.customer.name }}
+                    </p>
+                    <p>
+                        <strong>Email:</strong>
+                        {{ bill.customer.email }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Products -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            Products
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of bill.productItems">
+                        <td>
+                            {{ item.product.name }}
+                        </td>
+                        <td>
+                            {{ item.unitPrice }} €
+                        </td>
+                        <td>
+                            {{ item.quantity }}
+                        </td>
+                        <td>
+                            {{ item.quantity * item.unitPrice }} €
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
